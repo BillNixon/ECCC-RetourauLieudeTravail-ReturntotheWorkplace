@@ -13,6 +13,10 @@ In order to setup the ECCC solution as-is you will need to have the following th
 * PowerApps
 * PowerAutomate
 
+## SharePoint
+
+To better understand the SharePoint setup refer to our [Data Dictionary](https://github.com/BillNixon/ECCC-RetourauLieudeTravail-ReturntotheWorkplace/blob/main/Documentation/COVID-19%20Reentry%20Application%20-%20Data%20Dictionary.xlsx)
+
 ## PowerApp
 
 The ECCC PowerApp is based on the Department of Justice's Covid-19 reentry application. ECCC has disabled, customized, and added functionality to support its unique requirements. Where possible we have simply commented our features that have been disabled. This should allow other department to easier re-add them into their application if they wish too.
@@ -31,7 +35,16 @@ ECCC has customized two PowerBI dashboards that were created by DoJ. These are t
 
 [read our setup guide](https://github.com/BillNixon/ECCC-RetourauLieudeTravail-ReturntotheWorkplace/blob/main/setup-manual.md)
 
-
 ## Changes From DoJ Version
 
 The ECCC return to workplace application was based on the Department of Justice's Covid-19 Reentry application. Our customizations and changes have been documented in our [DoJ to ECCC Changelog](https://github.com/BillNixon/ECCC-RetourauLieudeTravail-ReturntotheWorkplace/blob/main/DoJ%20to%20ECCC%20Changelog.md)
+
+## Documentation
+
+* [Data Dictionary](https://github.com/BillNixon/ECCC-RetourauLieudeTravail-ReturntotheWorkplace/blob/main/Documentation/COVID-19%20Reentry%20Application%20-%20Data%20Dictionary.xlsx)
+* [Current Architecture Diagram](https://github.com/BillNixon/ECCC-RetourauLieudeTravail-ReturntotheWorkplace/blob/main/Documentation/ReturnToWorkplaceArchitecture-Production%20-%20Target%20-%20Architecture-Phase%202%20-%20Architecture.png)
+* [Building and Floor Excel Template] (https://github.com/BillNixon/ECCC-RetourauLieudeTravail-ReturntotheWorkplace/blob/main/Documentation/ECCC%20RTW%20Application%20Building%20and%20Floor%20Information%20Template.xlsx)
+* [English Application User Guide](https://github.com/BillNixon/ECCC-RetourauLieudeTravail-ReturntotheWorkplace/blob/main/Documentation/Return_Workplace_User_Guide%20_Images_EN.docx)
+* [French Application User Guide](https://github.com/BillNixon/ECCC-RetourauLieudeTravail-ReturntotheWorkplace/blob/main/Documentation/Return_Workplace_User_Guide_Images_FR.docx)
+* [Capacity Dashboard Guide](https://github.com/BillNixon/ECCC-RetourauLieudeTravail-ReturntotheWorkplace/blob/main/Dashboards/ECCC%20Office%20Capacity%20Dashboard_User%20Guide.docx)
+* [Contact Tracing Dashboard Guide](https://github.com/BillNixon/ECCC-RetourauLieudeTravail-ReturntotheWorkplace/blob/main/Dashboards/ECCC%20Contact%20Tracing%20Dashboard_User%20Guide.docx)
