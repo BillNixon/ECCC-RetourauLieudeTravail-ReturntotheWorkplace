@@ -34,4 +34,4 @@ ECCC has customized two PowerBI dashboards that were created by DoJ. These are t
 
 ## Changes From DoJ Version
 
-The ECCC return to workplace application was based on the Department of Justice's Covid-19 Reentry application. Our customizations and changes have been documented in our [DoJ to ECCC Changelog]()
+The ECCC return to workplace application was based on the Department of Justice's Covid-19 Reentry application. Our customizations and changes have been documented in our [DoJ to ECCC Changelog](https://github.com/BillNixon/ECCC-RetourauLieudeTravail-ReturntotheWorkplace/blob/main/DoJ%20to%20ECCC%20Changelog.md)
