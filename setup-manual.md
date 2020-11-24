@@ -1,20 +1,27 @@
-# COVID-19 Office Entry App Setup Manual
+# Retour au Lieude Travail - Return to the Workplace Setup Manual
 
-**Date: June 15, 2020**
+**Date: November 23rd 2020**
 
-**Version: 1.0**
+**Version: 2.0**
 
-**Author: Business Analytics Centre, Department of Justice**
+**Author: Based of the Rentry application from the Business Analytics Centre, Department of Justice. Modified by Environment and Climate Change Canada**
 
-**Contact: BACentre@justice.gc.ca**
 
-## Summary
+## Project Summary
 
-The COVID-19 Office Entry app allows employees to request access to specific floors for themselves and visitors in specific buildings during certain times, and for those requests to be approved by managers. This allows the department to ensure a safe environment with a much lower chance of employees coming into contact with each other. The app has been developed by the Department of Justice Business Analytics Centre using the Office 365 Power Platform. The main pieces include a Power Apps application and a series of SharePoint lists that will store the data that is created and/or referenced by the application. This document provides the details for setting up this application to work in a different Office 365 environment or under a different tenant.
+The Retour au Lieude Travail - Return to the Workplace system allows employees to request access to specific floors for themselves and visitors in specific buildings during certain times, and for those requests to be approved by managers. This allows the department to ensure a safe environment with a much lower chance of employees coming into contact with each other. The system has been developed based on the Renrty application made by the Department of Justice Business Analytics Centre using the Office 365 Power Platform. The main pieces include a Power Apps application, PoerAutomate Flows, SharePoint lists, and PowerBI desktop dashboards. This document provides the details for setting up this application to work in a different Office 365 environment or under a different tenant.
 
-## SharePoint Lists Setup
+## SharePoint Lists Overview
 
 The solution uses PowerShell scripting and incorporates the SharePoint Patterns and Practices (PnP) library to populate the SharePoint environment. The first time you setup the SharePoint environment, you might first need to adjust your PowerShell environment, as described below.
+
+##SharePoint Site Setup
+
+Note that weird results may be expected if lists of the same name already exist in the SharePoint site. It is recommended to create a new, empty, SharePoint subsite for the lists that will be used by this app. To create a new subsite:
+    - select **Site contents** on the left hand side of the SharePoint screen, then Select **New --> Subsite**
+    - At minimum, provide a suitable **Title** and **Web Site Address**. The Template selection can be left as the default: Team site (no Office 365 group)
+	
+1. The solution ECCC design requires two separate SahrePoint sites. One is the application site used by the PowerApp. The other site is the reporting site used by the PowerBI Dashboard and accessed directly by report users.
 
 ### PowerShell and PnP Library Setup
 
@@ -31,21 +38,33 @@ The solution uses PowerShell scripting and incorporates the SharePoint Patterns 
 \*\* Note: for safety, it is advised to switch the policy back to constrained language mode (i.e. changing the variable back to 4) if it was previously set to that mode, after you are done all of the required tasks in PowerShell.
 
 ### SharePoint List Templates Creation
+The ECC solution requires two SharePoint sites. One is used for reporting and other supports the application. Power Automate flows synchronize the data between the two sites.
 
 1. Close any PowerShell window that may be open and open a new one as an administrator, as per Step 1 of the previous section.
-2. Open file **OfficeEntry-ApplyListSchemas.ps1** and update the variables **$SiteURL** with your target SharePoint site and **$TemplateFile** with the full path and filename of the XML file that contains the List Template definitions.
-3. Note that weird results may be expected if lists of the same name already exist in the SharePoint site. It is recommended to create a new, empty, SharePoint subsite for the lists that will be used by this app. To create a new subsite:
-    - select **Site contents** on the left hand side of the SharePoint screen, then Select **New --> Subsite**
-    - At minimum, provide a suitable **Title** and **Web Site Address**. The Template selection can be left as the default: Team site (no Office 365 group)
-4. Run the command **./OfficeEntry-ApplyListSchemas** (note: you must be in the same directory as the script and the XML file when you run this.)
+2. Open file **RLT_RTW_App_Site_ApplyListSchemas.ps1** for editing and update the variables **$SiteURL** with your target SharePoint site and **$File_Path** with the full path and filename of the XML file that contains the List Template definitions.
+3. Open file **RLT_RTW_Reporting_Site_ApplyListSchemas.ps1** for editing and update the variables **$SiteURL** with your target SharePoint site and **$File_Path** with the full path and filename of the XML file that contains the List Template definitions.
+4. Run the command **./RLT_RTW_App_Site_ApplyListSchemas.ps1** (note: you must be in the same directory as the script and the XML file when you run this.)
 5. If you have not yet logged into Office 365 during this session, you will be prompted with a pop-up to login to Office 365 in the usual way.
-6. The new lists will then be created on the target SharePoint site.
-7. Configure the permissions of the SharePoint site to permit users in the organization to have access to the new lists, for example, by creating a new group containing all desired users. The permissions for the group could be: &quot;Users will only be able to add, update, and view items from a remote interface.&quot;
-8. If interested, refer to file **OfficeEntry-GetListSchemas.ps1** to see how the XML file was generated. This may come in handy if you wish to create a copy of the list templates on your own site to migrate to a different environment.
+6. The new lists will then be created on the target application SharePoint site.
+7. For the Application site configure the permissions of the SharePoint site to permit users in the organization to have access to the new lists. If you want all organization users to the use the application add the 'Everyone except external users' group to the lists' share premissions
+8. Run the command **./RLT_RTW_Reporting_Site_ApplyListSchemas.ps1** (note: you must be in the same directory as the script and the XML file when you run this.)
+9. The new lists will then be created on the target reporting SharePoint site.
+10. For the reporting site configure the permissions of the SharePoint site to permit users in the organization to have access to the new lists, for example, by creating a new group containing all desired report users. The permissions for the group could be: &quot;Users will only be able to view items from a remote interface.&quot;
+11. If interested, refer to file **-GetListSchemas.ps1** files to see how the XML file was generated. This may come in handy if you wish to create a copy of the list templates on your own site to migrate to a different environment.
 
 ### Populating SharePoint Lists
 
-No lists need to be pre-populated in order to begin using the app, however you may wish to copy data from one environment to another in your development cycle. Sample scripts have been provided to show how to do this. Refer to **Building-GetListData.ps1** and **Building-ApplyListData.ps1** for scripts that will work with the **Building** list; scripts for other tables can be created in the same fashion.
+Before running any -ApplyListData.ps1 files change the $SiteURL and $File_Path values to match you SharePoint URL and local file system.
+
+
+1. Run the TextTemplate-ApplyListData.ps1 for the application SharePoint to update the ECCC text data from the TextTemplate.csv. This data is needed to popluate the emails and various screen in the application
+2. If you've filled out of the Documentation\ECCC RTW Application Building and Floor Information Template.xlsx for floor and building data export the building and floor sheets to CSV. use  '|' as a separator and make sure all values are double quote enclosed
+3. Run the Floor-ApplyListData.ps1 on both the application and reporting sites
+4. Run the Building-ApplyListData.ps1 on both the application and reporting sites
+5. If your organization requires email mapping from office365 accounts to Bell canada.ca account. Upload data into the Application's EmailLookup list using EmailLookup-ApplyListData.ps1
+
+Scripts to upload or download data to all Sharepoint lists are included in the 'PS Scripts\' folder
+
 
 ## Power Apps Setup
 
@@ -66,7 +85,7 @@ No lists need to be pre-populated in order to begin using the app, however you m
 4. On the editing page, on the left hand side, click the three squares stacked on each other to bring up the **Tree View**.
 5. For **Screens**, click **App** (the first item), then in the middle of the screen above the app view, refer to the code window beside the **fx** icon.
 6. On the right hand side of the code window, click the down indicator to expand the window.
-7. Find the section of the code that refers to **\_appID**. In the quotations, remove the text and paste the App ID that was copied in an earlier step.
+7. Find the section of the code that refers to **[YOUR_APP_ID_HERE]**. In the quotations, remove the text and paste the App ID that was copied in an earlier step.
 
 ###
 
@@ -79,7 +98,7 @@ All data sources have been stripped from the app prior to sharing it. Several da
 3. Expand the **Connectors** submenu
 4. Select **Office 365 Outlook** and then **Add a connection**. Then **Connect**.
 5. Select **Office 365 Users** and then **Add a connection**. Then **Connect**.
-6. Select **SharePoint** and then **Add a connection**. Ensure radio button is on **Connect directly (cloud services)** and then click **Connect**. Enter the URL of the SharePoint site that contains all the lists you created, then click **Connect**. Select these lists that you previously created: AccessRequest, Building, Floor, UserSetting, VisitorLog; then click **Connect**.
+6. Select **SharePoint** and then **Add a connection**. Ensure radio button is on **Connect directly (cloud services)** and then click **Connect**. Enter the URL of the application SharePoint site that contains all the lists you created, then click **Connect**. Select these lists that you previously created: AccessRequest, Building, EmailLookup, EmailQueue, Floor, LoginLog, TextTemplate, UserSetting, VisitorAttestation, VisitorLog; then click **Connect**.
 7. Select **Power Apps Notification** and then **Add a connection**. For the target application, enter the App ID from the previous section, then click **Connect**.
 
 ### Enabling App Usage
@@ -89,4 +108,5 @@ All data sources have been stripped from the app prior to sharing it. Several da
 3. Select the … beside the version you wish to publish, if it is not already Live.
 4. Select **Publish this version** , then **Publish this version**.
 5. On the main Apps page, click the … beside the app and click **Share**.
-6. Add users as desired, then click **Share**.
+6. Add users as desired or pick the 'everyone' group if your sharing to all users in your organization, then click **Share**.
+7. Each user will require access to the application SharePoint lists in order for the application to function correctly
