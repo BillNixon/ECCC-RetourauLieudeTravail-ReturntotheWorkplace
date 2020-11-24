@@ -43,7 +43,7 @@ The ECCC return to workplace application was based on the Department of Justice'
 
 * [Data Dictionary](https://github.com/BillNixon/ECCC-RetourauLieudeTravail-ReturntotheWorkplace/blob/main/Documentation/COVID-19%20Reentry%20Application%20-%20Data%20Dictionary.xlsx)
 * [Current Architecture Diagram](https://github.com/BillNixon/ECCC-RetourauLieudeTravail-ReturntotheWorkplace/blob/main/Documentation/ReturnToWorkplaceArchitecture-Production%20-%20Target%20-%20Architecture-Phase%202%20-%20Architecture.png)
-* [Building and Floor Excel Template] (https://github.com/BillNixon/ECCC-RetourauLieudeTravail-ReturntotheWorkplace/blob/main/Documentation/ECCC%20RTW%20Application%20Building%20and%20Floor%20Information%20Template.xlsx)
+* [Building and Floor Excel Template](https://github.com/BillNixon/ECCC-RetourauLieudeTravail-ReturntotheWorkplace/blob/main/Documentation/ECCC%20RTW%20Application%20Building%20and%20Floor%20Information%20Template.xlsx)
 * [English Application User Guide](https://github.com/BillNixon/ECCC-RetourauLieudeTravail-ReturntotheWorkplace/blob/main/Documentation/Return_Workplace_User_Guide%20_Images_EN.docx)
 * [French Application User Guide](https://github.com/BillNixon/ECCC-RetourauLieudeTravail-ReturntotheWorkplace/blob/main/Documentation/Return_Workplace_User_Guide_Images_FR.docx)
 * [Capacity Dashboard Guide](https://github.com/BillNixon/ECCC-RetourauLieudeTravail-ReturntotheWorkplace/blob/main/Dashboards/ECCC%20Office%20Capacity%20Dashboard_User%20Guide.docx)
